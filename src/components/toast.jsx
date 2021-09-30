@@ -1,9 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import './index.css'
 
-const Toast = ({status, onMaskToast}) => {
+const Toast = ({status, timeout, position, onMaskToast}) => {
   const [visible, setVisible] = useState(status)
   const [displayed, setDisplayed] = useState(status)
+  position = (
+    position === "center" ||
+    position === "top"    ||
+    position === "bottom"
+  ) ? position : "bottom"
 
   useEffect(() => {
     if (visible) {
@@ -18,12 +23,12 @@ const Toast = ({status, onMaskToast}) => {
         }, 1000)
 
         clearTimeout(timer)
-      }, 2000)
+      }, timeout > 1000 ? timeout:1000)
     }
   }, [visible, onMaskToast])
 
   return (
-    <div className={`toast ${visible ? "toast-visible":""} ${displayed ? "toast-displayed":""}`}>
+    <div className={`toast toast-${position} ${visible ? "toast-visible":""} ${displayed ? "toast-displayed":""}`}>
       Hello
     </div>
   )

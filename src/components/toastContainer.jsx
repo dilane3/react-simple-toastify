@@ -4,7 +4,7 @@ import Toast from './toast'
 const ToastContainer = () => {
   return (
     <section>
-      <Toast status={true} onMaskToast={() => console.log("nothing")} />
+      <Toast status={true} timeout={6000} onMaskToast={() => console.log("nothing")} />
     </section>
   )
 }
