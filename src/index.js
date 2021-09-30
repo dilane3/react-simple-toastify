@@ -3,9 +3,20 @@ import ReactDOM from 'react-dom';
 import ToastContainer from './components/toastContainer'
 import reportWebVitals from './reportWebVitals';
 
+const toastConfig = {
+  position: "center",
+  timeout: 20,
+  messages: [
+    {
+      type: "ok",
+      value: "hello dilane"
+    }
+  ]
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <ToastContainer />
+    <ToastContainer config={toastConfig} />
   </React.StrictMode>,
   document.getElementById('root')
 );

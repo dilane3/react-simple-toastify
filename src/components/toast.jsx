@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import './index.css'
 
-const Toast = ({status, timeout, position, onMaskToast}) => {
+const Toast = ({status, timeout, position, message, onMaskToast}) => {
   const [visible, setVisible] = useState(status)
   const [displayed, setDisplayed] = useState(status)
   position = (
@@ -29,7 +29,7 @@ const Toast = ({status, timeout, position, onMaskToast}) => {
 
   return (
     <div className={`toast toast-${position} ${visible ? "toast-visible":""} ${displayed ? "toast-displayed":""}`}>
-      Hello
+      {message.value}
     </div>
   )
 }
