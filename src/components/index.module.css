@@ -1,0 +1,24 @@
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 200px;
+  min-width: 60px;
+  width: auto;
+  height: auto;
+  padding: 10px;
+  border-radius: 10px;
+  /*box-shadow: 0 2px 5px grey;*/
+  background: #f4f4f4;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: ubuntu, arial;
+  text-align: center;
+  color: rgba(0, 0, 0, .8);
+  opacity: .95;
+}
+
+body {
+  background: blue;
+}
