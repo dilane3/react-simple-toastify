@@ -4,7 +4,7 @@
   "private": false,
   "license": "ISC",
   "author": "dilane3",
-  "main": "/src/index.js",
+  "main": "/lib/index.js",
   "keyboards": [
     "react",
     "toast",

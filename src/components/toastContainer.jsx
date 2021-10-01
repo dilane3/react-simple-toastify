@@ -2,8 +2,15 @@ import React, {useState, useContext, useEffect} from 'react'
 import Toast from './toast'
 import ToastContext from '../context/toastContext'
 
-const ToastContainer = ({config}) => {
-  let {position, timeout} = config
+const ToastContainer = ({options}) => {
+  let {position, timeout} = options
+
+  timeout = timeout && timeout > 1000 ? timeout : 1000
+  position = (
+    position === "center" ||
+    position === "top"
+  ) ? position : "bottom"
+
   const {status, message} = useContext(ToastContext)
   const [show, setShow] = useState(status)
 
@@ -11,7 +18,6 @@ const ToastContainer = ({config}) => {
     setShow(status)
   }, [status])
 
-  timeout = timeout && timeout > 1000 ? timeout : 1000
 
   return (
     <section>

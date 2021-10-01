@@ -1,9 +1,9 @@
 import React from 'react'
 
 const ToastContext = React.createContext({
-  message: "succes",
+  message: "",
   status: false,
-  changeMessage: (message) => {},
+  displayToast: (message) => {},
   maskToast: () => {}
 })
 

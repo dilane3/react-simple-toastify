@@ -1,70 +1,161 @@
-# Getting Started with Create React App
+# Getting stated with react-simple-toastify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**react-simple-toastify** is a simple library for displaying notifications in your application
 
-## Available Scripts
+## Installation
+For installing this library you should use **npm**.
 
-In the project directory, you can run:
+```bash
+npm install react-simple-toastify
 
-### `yarn start`
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+or
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm i react-simple-toastify
 
-### `yarn test`
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
+It's very simple to setup this library, you have to follow the following steps below.
 
-### `yarn build`
+### Step 1.
+You have to import and set up one Provider of context in your application, where you want to display **toasts**.
+Assuming that you have an App component which is your main component that contains all the rest of yours other components. You must put all other elements or components inside the Provider's context, which contains global declaration of data that will be access anywhere in the app. We will also use a hook that will provide state and two function for displaying and masking toasts.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Import**
+```javascript
+import {ToastContext, useToastState} from 'react-simple-toastify'
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Creation of App component and setup the Provider**
 
-### `yarn eject`
+```javascript
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const App = () => {
+  const [
+    toastState, // this contain data of current toast
+    displayToast, // this function allow you to display toast
+    maskToast // this function is use to mask toast
+  ] = useToastState()
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  const contextValue = {...toastState, displayToast, maskToast}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  return (
+    <ToastContext.Provider value={contextValue}>
+      {
+        // here you can put anything you want...
+      }
+    <ToastContext.Provider>
+  )
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+export default App
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Step 2.
+Now, you need to import **ToastContainer** component, which is used to display toast on the screen.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Import**
 
-### Code Splitting
+```javascript
+import {ToastContext, useToastState, ToastContainer} from 'react-simple-toastify'
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
 
-### Analyzing the Bundle Size
+**Set up**
+After having import **ToastContainer**, you need to include it inside the rendering of the App component and provide to it some Options or Configuration.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
 
-### Making a Progressive Web App
+const toastOptions = {
+  position: "top" || "center" || "bottom",
+  timeout: 1000
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
 
-### Advanced Configuration
+**Explanation of the Option**
+| properties | type     | default   | description                                  |
+| ---        | ---      | ---       | ---                                          |
+| position   | String   | "bottom"  | set the position of the toast on the screen  |
+| timeout    | Number   | 1000      | set the delay time before masking the toast  |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Insertion of the ToastContainer Component**
 
-### Deployment
+```javascript
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+const App = () => {
+  const [
+    toastState, // this contain data of current toast
+    displayToast, // this function allow you to display toast
+    maskToast // this function is use to mask toast
+  ] = useToastState()
 
-### `yarn build` fails to minify
+  // the global state
+  const contextValue = {...toastState, displayToast, maskToast}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  // some options
+  const toastOptions = {
+    position: "bottom",
+    timeout: 1000
+  }
+
+  return (
+    <ToastContext.Provider value={contextValue}>
+      {
+        // here you can put anything you want...
+      }
+
+      <ToastContainer options={toastOptions} />
+    <ToastContext.Provider>
+  )
+}
+
+export default App
+
+```
+
+It's ok, you have correctly setup the toast system in your application, Congrats ... Now, you can display toast everywhere in your application
+
+### Step 3.
+
+Now, you are ready to display toast. Suppose that you have another component named **TestComponent**. Let's see how we can easily display toast.
+
+```javascript
+import React from 'react'
+import {useToastState} from 'react-simple-toastify'
+
+const TestComponent = () => {
+  /**
+   * useToastState hook return an array of three elements
+   * where the second is the displayToast function   *
+   * */
+  const displayToast = useToastState()[1]
+
+  return (
+    <div>
+      {
+        // other elements here
+      }
+
+      <button onClick={() => displayToast("Hello World !")}>display Toast</button>
+
+      {
+        // other elements here
+      }
+    </div>
+  )
+}
+
+export default TestComponent
+
+```
+
+**Explanation**
+
+When you call the displayToast() function, by passing the message as argument, the toast will be displayed and will disappear after the number of milliseconds define in the configuration of the **ToastContainer**.
+This function takes only one argument, which is the message to display.

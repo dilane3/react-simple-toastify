@@ -1,17 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react'
-import './index.css'
+import '../../src/index.css'
 import ToastContext from '../context/toastContext'
 
 const Toast = ({status, timeout, position, message}) => {
   const [visible, setVisible] = useState(status)
   const [displayed, setDisplayed] = useState(status)
   const {maskToast} = useContext(ToastContext)
-
-  position = (
-    position === "center" ||
-    position === "top"    ||
-    position === "bottom"
-  ) ? position : "bottom"
 
   useEffect(() => {
     if (status) {
