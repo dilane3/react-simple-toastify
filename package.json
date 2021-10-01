@@ -1,11 +1,11 @@
 {
   "name": "react-simple-toastify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "license": "ISC",
   "author": "dilane3",
   "main": "/lib/index.js",
-  "keyboards": [
+  "keywords": [
     "react",
     "toast",
     "toastify",

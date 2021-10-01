@@ -125,16 +125,17 @@ It's ok, you have correctly setup the toast system in your application, Congrats
 
 Now, you are ready to display toast. Suppose that you have another component named **TestComponent**. Let's see how we can easily display toast.
 
+#### With Function component
+
 ```javascript
-import React from 'react'
-import {useToastState} from 'react-simple-toastify'
+import React, {useContext} from 'react'
+import {ToastContext} from 'react-simple-toastify'
 
 const TestComponent = () => {
   /**
-   * useToastState hook return an array of three elements
-   * where the second is the displayToast function   *
+   * Here we destructure the displayToast from ToastContext
    * */
-  const displayToast = useToastState()[1]
+  const {displayToast} = useContext(ToastContext)
 
   return (
     <div>
@@ -143,13 +144,37 @@ const TestComponent = () => {
       }
 
       <button onClick={() => displayToast("Hello World !")}>display Toast</button>
-
-      {
-        // other elements here
-      }
     </div>
   )
 }
+
+export default TestComponent
+
+```
+
+#### With Class Component
+
+```javascript
+import React from 'react'
+import {ToastContext} from 'react-simple-toastify'
+
+class TestComponent extends React.Component {
+  render() {
+    const {displayToast} = this.context
+
+    return (
+      <div>
+        {
+          // other elements here
+        }
+
+        <button onClick={() => displayToast("Hello World !")}>display Toast</button>
+      </div>
+    )
+  }
+}
+
+TestComponent.contextType = ToastContext
 
 export default TestComponent
 
