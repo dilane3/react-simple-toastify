@@ -1,7 +1,18 @@
 {
   "name": "react-simple-toastify",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "license": "ISC",
+  "author": "dilane3",
+  "main": "/src/index.js",
+  "keyboards": [
+    "react",
+    "toast",
+    "toastify",
+    "react-toast",
+    "notice",
+    "notification"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -15,8 +26,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "babel": "./node_modules/.bin/babel src --out-dir lib"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilane3/react-simple-toastify.git"
+  },
+  "homepage": "https://github.com/dilane3/react-simple-toastify#readme",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -34,5 +51,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-react": "^7.14.5"
   }
 }

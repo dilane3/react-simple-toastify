@@ -1,20 +1,25 @@
-import React, {useState} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import Toast from './toast'
+import ToastContext from '../context/toastContext'
 
 const ToastContainer = ({config}) => {
-  let {position, timeout, messages} = config
-  timeout = timeout && timeout > 1000 ? timeout : 1000
+  let {position, timeout} = config
+  const {status, message} = useContext(ToastContext)
+  const [show, setShow] = useState(status)
 
-  const [toastMessage, setToastMessage] = useState(messages)
+  useEffect(() => {
+    setShow(status)
+  }, [status])
+
+  timeout = timeout && timeout > 1000 ? timeout : 1000
 
   return (
     <section>
       <Toast
-        status={true}
+        status={show}
         position={position}
         timeout={timeout}
-        message={toastMessage[0]}
-        onMaskToast={() => console.log("nothing")}
+        message={message}
       />
     </section>
   )

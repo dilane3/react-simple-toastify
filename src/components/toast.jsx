@@ -1,14 +1,24 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import './index.css'
+import ToastContext from '../context/toastContext'
 
-const Toast = ({status, timeout, position, message, onMaskToast}) => {
+const Toast = ({status, timeout, position, message}) => {
   const [visible, setVisible] = useState(status)
   const [displayed, setDisplayed] = useState(status)
+  const {maskToast} = useContext(ToastContext)
+
   position = (
     position === "center" ||
     position === "top"    ||
     position === "bottom"
   ) ? position : "bottom"
+
+  useEffect(() => {
+    if (status) {
+      setVisible(status)
+      setDisplayed(status)
+    }
+  }, [status])
 
   useEffect(() => {
     if (visible) {
@@ -17,7 +27,7 @@ const Toast = ({status, timeout, position, message, onMaskToast}) => {
 
         let timer2 = setTimeout(() => {
           setVisible(false)
-          onMaskToast(false)
+          maskToast(false)
 
           clearTimeout(timer2)
         }, 1000)
@@ -25,11 +35,11 @@ const Toast = ({status, timeout, position, message, onMaskToast}) => {
         clearTimeout(timer)
       }, timeout > 1000 ? timeout:1000)
     }
-  }, [visible, onMaskToast])
+  }, [visible, maskToast])
 
   return (
     <div className={`toast toast-${position} ${visible ? "toast-visible":""} ${displayed ? "toast-displayed":""}`}>
-      {message.value}
+      {message}
     </div>
   )
 }
