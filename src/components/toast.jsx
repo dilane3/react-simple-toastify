@@ -32,7 +32,7 @@ const Toast = ({status, timeout, position, message}) => {
   }, [visible, maskToast])
 
   return (
-    <div className={`toast toast-${position} ${visible ? "toast-visible":""} ${displayed ? "toast-displayed":""}`}>
+    <div className={`toast-item toast-${position} ${visible ? "toast-visible":""} ${displayed ? "toast-displayed":""}`}>
       {message}
     </div>
   )

@@ -1,4 +1,4 @@
-.toast {
+.toast-item {
   position: fixed;
   bottom: 30px;
   left: 50%;
@@ -31,10 +31,10 @@
   transform: translate(-50%, -50%);
 }
 
-.toast.toast-displayed {
+.toast-item.toast-displayed {
   opacity: 1;
 }
 
-.toast:not(.toast-visible) {
+.toast-item:not(.toast-visible) {
   display: none;
 }
