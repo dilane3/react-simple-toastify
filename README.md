@@ -22,11 +22,11 @@ It's very simple to setup this library, you have to follow the following steps b
 
 ### Step 1.
 You have to import and set up one Provider of context in your application, where you want to display **toasts**.
-Assuming that you have an App component which is your main component that contains all the rest of yours other components. You must put all other elements or components inside the Provider's context, which contains global declaration of data that will be access anywhere in the app. We will also use a hook that will provide state and two function for displaying and masking toasts.
+Assuming that you have an App component which is your main component that contains all the rest of yours other components. You must put all other elements or components inside a Provider component named 'ToastProdvider', which contains global declaration of data that will be access anywhere in the app.
 
 **Import**
 ```javascript
-import {ToastContext, useToastState} from 'react-simple-toastify'
+import {ToastProvider} from 'react-simple-toastify'
 
 ```
 
@@ -35,20 +35,12 @@ import {ToastContext, useToastState} from 'react-simple-toastify'
 ```javascript
 
 const App = () => {
-  const [
-    toastState, // this contain data of current toast
-    displayToast, // this function allow you to display toast
-    maskToast // this function is use to mask toast
-  ] = useToastState()
-
-  const contextValue = {...toastState, displayToast, maskToast}
-
   return (
-    <ToastContext.Provider value={contextValue}>
+    <ToastProvider>
       {
         // here you can put anything you want...
       }
-    <ToastContext.Provider>
+    <ToastProvider>
   )
 }
 
@@ -57,17 +49,10 @@ export default App
 ```
 
 ### Step 2.
-Now, you need to import **ToastContainer** component, which is used to display toast on the screen.
-
-**Import**
-
-```javascript
-import {ToastContext, useToastState, ToastContainer} from 'react-simple-toastify'
-
-```
+Now, you need to add some options to the **ToastProvider**
 
 **Set up**
-After having import **ToastContainer**, you need to include it inside the rendering of the App component and provide to it some Options or Configuration.
+Let's consider the following options
 
 ```javascript
 
@@ -84,20 +69,11 @@ const toastOptions = {
 | position   | String   | "bottom"  | set the position of the toast on the screen  |
 | timeout    | Number   | 1000      | set the delay time before masking the toast  |
 
-**Insertion of the ToastContainer Component**
+**Insertion of options to the ToastProvider Component**
 
 ```javascript
 
 const App = () => {
-  const [
-    toastState, // this contain data of current toast
-    displayToast, // this function allow you to display toast
-    maskToast // this function is use to mask toast
-  ] = useToastState()
-
-  // the global state
-  const contextValue = {...toastState, displayToast, maskToast}
-
   // some options
   const toastOptions = {
     position: "bottom",
@@ -105,13 +81,11 @@ const App = () => {
   }
 
   return (
-    <ToastContext.Provider value={contextValue}>
+    <ToastProvider options={toastOptions}>
       {
         // here you can put anything you want...
       }
-
-      <ToastContainer options={toastOptions} />
-    <ToastContext.Provider>
+    <ToastProvider>
   )
 }
 
@@ -134,7 +108,7 @@ import {ToastContext} from 'react-simple-toastify'
 const TestComponent = () => {
   /**
    * Here we destructure the displayToast from ToastContext
-   * */
+   **/
   const {displayToast} = useContext(ToastContext)
 
   return (
@@ -182,5 +156,5 @@ export default TestComponent
 
 **Explanation**
 
-When you call the displayToast() function, by passing the message as argument, the toast will be displayed and will disappear after the number of milliseconds define in the configuration of the **ToastContainer**.
+When you call the displayToast() function, by passing the message as argument, the toast will be displayed and will disappear after the number of milliseconds define in the configuration of the **ToastProvider**.
 This function takes only one argument, which is the message to display.
